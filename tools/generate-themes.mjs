@@ -531,6 +531,187 @@ export const PALETTES = {
   },
 };
 
+// --- WCAG contrast helpers (no dependencies) ---
+
+export function parseHex(hex) {
+  let h = hex.trim().replace(/^#/, "");
+  if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+  if (h.length === 6) h += "ff";
+  if (h.length !== 8 || !/^[0-9a-f]{8}$/i.test(h)) {
+    throw new Error(`invalid hex color: ${hex}`);
+  }
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16),
+    a: parseInt(h.slice(6, 8), 16) / 255,
+  };
+}
+
+function channelToLinear(c) {
+  const s = c / 255;
+  return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+}
+
+export function relativeLuminance(hex) {
+  const { r, g, b } = parseHex(hex);
+  return 0.2126 * channelToLinear(r) + 0.7152 * channelToLinear(g) + 0.0722 * channelToLinear(b);
+}
+
+export function contrastRatio(hex1, hex2) {
+  const l1 = relativeLuminance(hex1);
+  const l2 = relativeLuminance(hex2);
+  const hi = Math.max(l1, l2);
+  const lo = Math.min(l1, l2);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function rgbToHsl(hex) {
+  const { r, g, b } = parseHex(hex);
+  const rn = r / 255;
+  const gn = g / 255;
+  const bn = b / 255;
+  const max = Math.max(rn, gn, bn);
+  const min = Math.min(rn, gn, bn);
+  const l = (max + min) / 2;
+  let h = 0;
+  let s = 0;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === rn) h = (gn - bn) / d + (gn < bn ? 6 : 0);
+    else if (max === gn) h = (bn - rn) / d + 2;
+    else h = (rn - gn) / d + 4;
+    h /= 6;
+  }
+  return { h, s, l };
+}
+
+function hslToHex({ h, s, l }) {
+  const hue2rgb = (p, q, t) => {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+  let r;
+  let g;
+  let b;
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
+  const toHex = (v) =>
+    Math.round(Math.min(1, Math.max(0, v)) * 255).toString(16).padStart(2, "0");
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+// High-contrast adjustment: binary-search HSL lightness (keeping hue and
+// saturation) until the color reaches `threshold` against every target
+// background. Light themes darken, dark themes lighten. If the threshold is
+// unreachable, the best achievable ratio is kept; below 4.5:1 the
+// saturation is lowered toward gray as a last resort.
+function adjustLightness(hex, targets, dir, threshold) {
+  const hsl = rgbToHsl(hex);
+  const make = (l, s = hsl.s) => hslToHex({ h: hsl.h, s, l });
+  const minRatio = (c) => Math.min(...targets.map((t) => contrastRatio(c, t)));
+  const best = { hex, ratio: minRatio(hex), note: null };
+  if (best.ratio >= threshold) return best;
+  let lLo = dir < 0 ? 0 : hsl.l;
+  let lHi = dir < 0 ? hsl.l : 1;
+  for (let i = 0; i < 40; i++) {
+    const mid = (lLo + lHi) / 2;
+    const c = make(mid);
+    const r = minRatio(c);
+    if (r > best.ratio) {
+      best.hex = c;
+      best.ratio = r;
+    }
+    if (r >= threshold) {
+      if (dir < 0) lHi = mid;
+      else lLo = mid;
+    } else {
+      if (dir < 0) lLo = mid;
+      else lHi = mid;
+    }
+  }
+  for (const l of [0, 1]) {
+    const c = make(l);
+    const r = minRatio(c);
+    if (r > best.ratio) {
+      best.hex = c;
+      best.ratio = r;
+    }
+  }
+  if (best.ratio >= threshold) return best;
+  if (best.ratio >= 4.5) {
+    best.note = threshold === 7.0 ? `max ${best.ratio.toFixed(2)}:1 < 7:1` : null;
+    return best;
+  }
+  let s = hsl.s;
+  while (s > 0.02) {
+    s = Math.max(0, s - 0.15);
+    for (const l of [0, 1]) {
+      const c = make(l, s);
+      const r = minRatio(c);
+      if (r > best.ratio) {
+        best.hex = c;
+        best.ratio = r;
+        best.note = `saturation reduced to ${s.toFixed(2)}`;
+      }
+    }
+    if (best.ratio >= 4.5) break;
+  }
+  return best;
+}
+
+function adjustForContrast(hex, targets, mode) {
+  const dir = mode === "light" ? -1 : 1;
+  return adjustLightness(hex, targets, dir, 7.0);
+}
+
+function adjustForButtonPair(hex, targets) {
+  const down = adjustLightness(hex, targets, -1, 4.5);
+  const up = adjustLightness(hex, targets, 1, 4.5);
+  return up.ratio > down.ratio ? up : down;
+}
+
+const TEXT_ROLE_COLORS = [
+  "fg",
+  "muted",
+  "subtle",
+  "accent",
+  "second",
+  "chart1",
+  "chart2",
+  "chart3",
+  "chart4",
+  "chart5",
+];
+
+const MODE_LABELS = { light: "Light", dark: "Dark" };
+
+// Pairs checked for high-contrast themes: [label, foreground key, background key].
+export const HC_PAIRS = [
+  ["fg", "editor.foreground", "editor.background"],
+  ["muted", "editorLineNumber.activeForeground", "editor.background"],
+  ["subtle", "editorLineNumber.foreground", "editor.background"],
+  ["accent", "editorCursor.foreground", "editor.background"],
+  ["second", "terminal.ansiCyan", "editor.background"],
+  ["chart-3", "terminal.ansiYellow", "editor.background"],
+  ["chart-4", "terminal.ansiMagenta", "editor.background"],
+  ["chart-2", "terminal.ansiGreen", "editor.background"],
+  ["accent-fg", "button.foreground", "button.background"],
+  ["fg/surface", "editor.foreground", "sideBar.background"],
+];
+
 function buildColors(m) {
   const withAlpha = (hex, alpha) => hex + alpha;
   return {
@@ -710,12 +891,83 @@ function buildTokenColors(m) {
   ];
 }
 
+// High-contrast variant of buildColors: text-role keys take the adjusted
+// palette, every non-text key (selections, borders, scrollbars, tabs,
+// shadows, guides, ...) keeps the base value unchanged.
+function buildColorsHC(m, base) {
+  const colors = buildColors(base);
+  colors["editor.foreground"] = m.fg;
+  colors["editorLineNumber.foreground"] = m.subtle;
+  colors["editorLineNumber.activeForeground"] = m.muted;
+  colors["editorCursor.foreground"] = m.accent;
+  colors["editorBracketHighlight.foreground1"] = m.accent;
+  colors["editorBracketHighlight.foreground2"] = m.second;
+  colors["editorBracketHighlight.foreground3"] = m.chart3;
+  colors["editorError.foreground"] = m.chart5;
+  colors["editorWarning.foreground"] = m.chart4;
+  colors["editorInfo.foreground"] = m.chart3;
+  colors["editorLink.activeForeground"] = m.second;
+  colors["sideBar.foreground"] = m.fg;
+  colors["sideBarSectionHeader.foreground"] = m.muted;
+  colors["activityBar.foreground"] = m.muted;
+  colors["activityBar.inactiveForeground"] = m.subtle;
+  colors["activityBarBadge.foreground"] = m.accentFg;
+  colors["titleBar.activeForeground"] = m.fg;
+  colors["titleBar.inactiveForeground"] = m.muted;
+  colors["statusBar.foreground"] = m.muted;
+  colors["statusBar.debuggingForeground"] = m.accentFg;
+  colors["panelTitle.activeForeground"] = m.accent;
+  colors["panelTitle.inactiveForeground"] = m.muted;
+  colors["terminal.foreground"] = m.fg;
+  colors["terminalCursor.foreground"] = m.accent;
+  colors["terminal.ansiBrightBlack"] = m.muted;
+  colors["terminal.ansiRed"] = m.chart5;
+  colors["terminal.ansiBrightRed"] = m.chart5;
+  colors["terminal.ansiGreen"] = m.chart2;
+  colors["terminal.ansiBrightGreen"] = m.chart2;
+  colors["terminal.ansiYellow"] = m.chart3;
+  colors["terminal.ansiBrightYellow"] = m.chart3;
+  colors["terminal.ansiBlue"] = m.chart1;
+  colors["terminal.ansiBrightBlue"] = m.chart1;
+  colors["terminal.ansiMagenta"] = m.chart4;
+  colors["terminal.ansiBrightMagenta"] = m.chart4;
+  colors["terminal.ansiCyan"] = m.second;
+  colors["terminal.ansiBrightCyan"] = m.second;
+  colors["terminal.ansiWhite"] = m.fg;
+  colors["terminal.ansiBrightWhite"] = m.fg;
+  colors["list.activeSelectionForeground"] = m.fg;
+  colors["list.highlightForeground"] = m.accent;
+  colors["list.errorForeground"] = m.chart5;
+  colors["list.warningForeground"] = m.chart4;
+  colors["button.foreground"] = m.accentFg;
+  colors["button.secondaryForeground"] = m.fg;
+  colors["input.foreground"] = m.fg;
+  colors["input.placeholderForeground"] = m.subtle;
+  colors["textLink.foreground"] = m.accent;
+  colors["textLink.activeForeground"] = m.accent;
+  colors["badge.foreground"] = m.accentFg;
+  colors["notifications.foreground"] = m.fg;
+  colors["notificationCenterHeader.foreground"] = m.muted;
+  colors["tab.activeForeground"] = m.fg;
+  colors["tab.inactiveForeground"] = m.muted;
+  colors["breadcrumb.foreground"] = m.muted;
+  colors["breadcrumb.focusForeground"] = m.accent;
+  colors["settings.headerForeground"] = m.accent;
+  colors["gitDecoration.addedResourceForeground"] = m.chart2;
+  colors["gitDecoration.modifiedResourceForeground"] = m.chart3;
+  colors["gitDecoration.deletedResourceForeground"] = m.chart5;
+  colors["gitDecoration.untrackedResourceForeground"] = m.second;
+  colors["gitDecoration.conflictingResourceForeground"] = m.chart4;
+  colors["gitDecoration.ignoredResourceForeground"] = m.subtle;
+  return colors;
+}
+
 mkdirSync(THEMES_DIR, { recursive: true });
 
 for (const [id, palette] of Object.entries(PALETTES)) {
   for (const mode of ["light", "dark"]) {
     const theme = {
-      name: `${palette.name} ${mode === "light" ? "Light" : "Dark"}`,
+      name: `${palette.name} ${MODE_LABELS[mode]}`,
       type: mode,
       colors: buildColors(palette[mode]),
       tokenColors: buildTokenColors(palette[mode]),
@@ -725,4 +977,41 @@ for (const [id, palette] of Object.entries(PALETTES)) {
   }
 }
 
-console.log("Wrote 20 theme files to themes/.");
+// High-contrast variants: adjust text-role colors only, keep everything else.
+const hcNotes = [];
+const hcTable = [];
+for (const [id, palette] of Object.entries(PALETTES)) {
+  for (const mode of ["light", "dark"]) {
+    const m = palette[mode];
+    const targets = [m.bg, m.surface];
+    const adj = { ...m };
+    for (const prop of TEXT_ROLE_COLORS) {
+      const res = adjustForContrast(m[prop], targets, mode);
+      adj[prop] = res.hex;
+      if (res.note) hcNotes.push(`${id} ${mode} ${prop}: ${res.note}`);
+    }
+    const btn = adjustForButtonPair(m.accentFg, [m.accent, m.second]);
+    adj.accentFg = btn.hex;
+    if (btn.note) hcNotes.push(`${id} ${mode} accent-fg: ${btn.note}`);
+    const theme = {
+      name: `${palette.name} ${MODE_LABELS[mode]} (High Contrast)`,
+      type: mode,
+      colors: buildColorsHC(adj, m),
+      tokenColors: buildTokenColors(adj),
+    };
+    const file = join(THEMES_DIR, `${id}-${mode}-hc.color-theme.json`);
+    writeFileSync(file, JSON.stringify(theme, null, 2) + "\n");
+    const ratios = HC_PAIRS.map(
+      ([label, fgKey, bgKey]) =>
+        `${label}=${contrastRatio(theme.colors[fgKey], theme.colors[bgKey]).toFixed(2)}`,
+    );
+    hcTable.push(`${id}-${mode}: ${ratios.join(" ")}`);
+  }
+}
+
+console.log("\nHigh contrast summary:");
+for (const row of hcTable) console.log(row);
+for (const note of hcNotes) console.log(`note: ${note}`);
+console.log(
+  "\nWrote 20 base theme files and 20 high-contrast theme files to themes/.",
+);

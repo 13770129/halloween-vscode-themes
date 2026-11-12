@@ -1,8 +1,12 @@
-# Unsloth Halloween Themes
+# Halloween Themes
 
-VS Code color themes porting the 10 Halloween palettes added to Unsloth Studio.
-The palette values are taken verbatim from the CSS seed blocks in
+VS Code color themes porting the 10 Halloween palettes from Unsloth Studio.
+The palettes originate in
+[unslothai/unsloth#15678](https://github.com/unslothai/unsloth/pull/15678); the
+seed values are taken verbatim from the CSS blocks in
 [unslothai/unsloth#16503](https://github.com/unslothai/unsloth/pull/16503).
+Every palette also ships a high-contrast variant targeting WCAG AAA text
+contrast; see [docs/high-contrast.md](docs/high-contrast.md).
 
 ## Palettes
 
@@ -39,7 +43,7 @@ to preview syntax token colors.
 
 ### By copying the folder
 
-1. Copy this folder (as `unsloth-halloween-themes`) into:
+1. Copy this folder (as `halloween-themes`) into:
    - Linux/macOS: `~/.vscode/extensions/`
    - Windows: `%USERPROFILE%\.vscode\extensions`
 2. Reload the window: Command Palette → **Developer: Reload Window** (or restart
@@ -55,4 +59,11 @@ portable to VS Code, so it is intentionally dropped here.
 - `tools/generate-themes.mjs` — generates `themes/*.color-theme.json` from the
   palette data.
 - `tools/validate.mjs` — checks the generated extension assets.
-- `demo/sample.py` — syntax-highlighting preview file.
+- `demo/sample.py`, `demo/main.rs`, `demo/main.go` — syntax-highlighting
+  preview files.
+
+## License
+
+Apache-2.0. Palette values derive from
+[unslothai/unsloth](https://github.com/unslothai/unsloth) (Apache-2.0); see
+`NOTICE`.

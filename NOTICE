@@ -1,0 +1,8 @@
+Halloween Themes — VS Code color theme extension
+Copyright 2026 Armando
+
+This product includes palette values ported from Unsloth Studio
+(https://github.com/unslothai/unsloth), licensed under the Apache License,
+Version 2.0:
+  - Palettes originate in https://github.com/unslothai/unsloth/pull/15678
+  - Seed values ported from https://github.com/unslothai/unsloth/pull/16503

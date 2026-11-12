@@ -1,10 +1,14 @@
 {
-  "name": "unsloth-halloween-themes",
-  "displayName": "Unsloth Halloween Themes",
+  "name": "halloween-themes",
+  "displayName": "Halloween Themes",
   "description": "Halloween color palettes from Unsloth Studio.",
   "version": "0.1.0",
   "publisher": "armando",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/13770129/halloween-vscode-themes"
+  },
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -112,6 +116,106 @@
         "label": "Goth Dark",
         "uiTheme": "vs-dark",
         "path": "themes/gothic-dark.color-theme.json"
+      },
+      {
+        "label": "Pumpkin Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/pumpkin-light-hc.color-theme.json"
+      },
+      {
+        "label": "Pumpkin Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/pumpkin-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Coven Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/black-cat-light-hc.color-theme.json"
+      },
+      {
+        "label": "Coven Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/black-cat-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Candycorn Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/candycorn-light-hc.color-theme.json"
+      },
+      {
+        "label": "Candycorn Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/candycorn-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Bloody Valentine Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/bloody-valentine-light-hc.color-theme.json"
+      },
+      {
+        "label": "Bloody Valentine Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/bloody-valentine-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Hexberry Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/hexberry-light-hc.color-theme.json"
+      },
+      {
+        "label": "Hexberry Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/hexberry-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Alien Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/alien-light-hc.color-theme.json"
+      },
+      {
+        "label": "Alien Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/alien-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Ghost Ship Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/ghost-ship-light-hc.color-theme.json"
+      },
+      {
+        "label": "Ghost Ship Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/ghost-ship-dark-hc.color-theme.json"
+      },
+      {
+        "label": "The Thing Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/the-thing-light-hc.color-theme.json"
+      },
+      {
+        "label": "The Thing Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/the-thing-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Full Moon Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/midnight-haunt-light-hc.color-theme.json"
+      },
+      {
+        "label": "Full Moon Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/midnight-haunt-dark-hc.color-theme.json"
+      },
+      {
+        "label": "Goth Light (High Contrast)",
+        "uiTheme": "vs",
+        "path": "themes/gothic-light-hc.color-theme.json"
+      },
+      {
+        "label": "Goth Dark (High Contrast)",
+        "uiTheme": "vs-dark",
+        "path": "themes/gothic-dark-hc.color-theme.json"
       }
     ]
   }
