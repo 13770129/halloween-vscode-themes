@@ -1,0 +1,118 @@
+{
+  "name": "unsloth-halloween-themes",
+  "displayName": "Unsloth Halloween Themes",
+  "description": "Halloween color palettes from Unsloth Studio.",
+  "version": "0.1.0",
+  "publisher": "armando",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Pumpkin Light",
+        "uiTheme": "vs",
+        "path": "themes/pumpkin-light.color-theme.json"
+      },
+      {
+        "label": "Pumpkin Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/pumpkin-dark.color-theme.json"
+      },
+      {
+        "label": "Coven Light",
+        "uiTheme": "vs",
+        "path": "themes/black-cat-light.color-theme.json"
+      },
+      {
+        "label": "Coven Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/black-cat-dark.color-theme.json"
+      },
+      {
+        "label": "Candycorn Light",
+        "uiTheme": "vs",
+        "path": "themes/candycorn-light.color-theme.json"
+      },
+      {
+        "label": "Candycorn Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/candycorn-dark.color-theme.json"
+      },
+      {
+        "label": "Bloody Valentine Light",
+        "uiTheme": "vs",
+        "path": "themes/bloody-valentine-light.color-theme.json"
+      },
+      {
+        "label": "Bloody Valentine Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/bloody-valentine-dark.color-theme.json"
+      },
+      {
+        "label": "Hexberry Light",
+        "uiTheme": "vs",
+        "path": "themes/hexberry-light.color-theme.json"
+      },
+      {
+        "label": "Hexberry Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/hexberry-dark.color-theme.json"
+      },
+      {
+        "label": "Alien Light",
+        "uiTheme": "vs",
+        "path": "themes/alien-light.color-theme.json"
+      },
+      {
+        "label": "Alien Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/alien-dark.color-theme.json"
+      },
+      {
+        "label": "Ghost Ship Light",
+        "uiTheme": "vs",
+        "path": "themes/ghost-ship-light.color-theme.json"
+      },
+      {
+        "label": "Ghost Ship Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/ghost-ship-dark.color-theme.json"
+      },
+      {
+        "label": "The Thing Light",
+        "uiTheme": "vs",
+        "path": "themes/the-thing-light.color-theme.json"
+      },
+      {
+        "label": "The Thing Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/the-thing-dark.color-theme.json"
+      },
+      {
+        "label": "Full Moon Light",
+        "uiTheme": "vs",
+        "path": "themes/midnight-haunt-light.color-theme.json"
+      },
+      {
+        "label": "Full Moon Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/midnight-haunt-dark.color-theme.json"
+      },
+      {
+        "label": "Goth Light",
+        "uiTheme": "vs",
+        "path": "themes/gothic-light.color-theme.json"
+      },
+      {
+        "label": "Goth Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/gothic-dark.color-theme.json"
+      }
+    ]
+  }
+}
