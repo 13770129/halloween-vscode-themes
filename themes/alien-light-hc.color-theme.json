@@ -1,6 +1,7 @@
 {
   "name": "Alien Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#eefff4",
     "editor.foreground": "#032a12",

@@ -1,6 +1,7 @@
 {
   "name": "Full Moon Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#f0f3ff",
     "editor.foreground": "#0c1442",

@@ -1,6 +1,7 @@
 {
   "name": "Coven Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#f6f1ff",
     "editor.foreground": "#120a1c",

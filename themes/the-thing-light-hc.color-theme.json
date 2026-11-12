@@ -1,6 +1,7 @@
 {
   "name": "The Thing Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#eef8ff",
     "editor.foreground": "#04233a",

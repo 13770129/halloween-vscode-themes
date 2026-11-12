@@ -1,6 +1,7 @@
 {
   "name": "Bloody Valentine Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#1f0307",
     "editor.foreground": "#ffe3e8",

@@ -1,6 +1,7 @@
 {
   "name": "Ghost Ship Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#021716",
     "editor.foreground": "#d9fff8",

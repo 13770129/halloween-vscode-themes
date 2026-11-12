@@ -1,6 +1,7 @@
 {
   "name": "The Thing Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#04121f",
     "editor.foreground": "#e0f3ff",

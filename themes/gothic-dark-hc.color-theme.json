@@ -1,6 +1,7 @@
 {
   "name": "Goth Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#0b0a0d",
     "editor.foreground": "#f1ecf2",

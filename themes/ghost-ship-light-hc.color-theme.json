@@ -1,6 +1,7 @@
 {
   "name": "Ghost Ship Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#ecfffb",
     "editor.foreground": "#03302a",

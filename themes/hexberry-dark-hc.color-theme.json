@@ -1,6 +1,7 @@
 {
   "name": "Hexberry Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#14060f",
     "editor.foreground": "#ffe6f3",

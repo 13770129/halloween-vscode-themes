@@ -1,6 +1,7 @@
 {
   "name": "Candycorn Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#fffaf0",
     "editor.foreground": "#2b1a05",

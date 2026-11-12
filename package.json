@@ -119,102 +119,102 @@
       },
       {
         "label": "Pumpkin Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/pumpkin-light-hc.color-theme.json"
       },
       {
         "label": "Pumpkin Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/pumpkin-dark-hc.color-theme.json"
       },
       {
         "label": "Coven Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/black-cat-light-hc.color-theme.json"
       },
       {
         "label": "Coven Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/black-cat-dark-hc.color-theme.json"
       },
       {
         "label": "Candycorn Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/candycorn-light-hc.color-theme.json"
       },
       {
         "label": "Candycorn Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/candycorn-dark-hc.color-theme.json"
       },
       {
         "label": "Bloody Valentine Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/bloody-valentine-light-hc.color-theme.json"
       },
       {
         "label": "Bloody Valentine Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/bloody-valentine-dark-hc.color-theme.json"
       },
       {
         "label": "Hexberry Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/hexberry-light-hc.color-theme.json"
       },
       {
         "label": "Hexberry Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/hexberry-dark-hc.color-theme.json"
       },
       {
         "label": "Alien Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/alien-light-hc.color-theme.json"
       },
       {
         "label": "Alien Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/alien-dark-hc.color-theme.json"
       },
       {
         "label": "Ghost Ship Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/ghost-ship-light-hc.color-theme.json"
       },
       {
         "label": "Ghost Ship Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/ghost-ship-dark-hc.color-theme.json"
       },
       {
         "label": "The Thing Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/the-thing-light-hc.color-theme.json"
       },
       {
         "label": "The Thing Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/the-thing-dark-hc.color-theme.json"
       },
       {
         "label": "Full Moon Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/midnight-haunt-light-hc.color-theme.json"
       },
       {
         "label": "Full Moon Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/midnight-haunt-dark-hc.color-theme.json"
       },
       {
         "label": "Goth Light (High Contrast)",
-        "uiTheme": "vs",
+        "uiTheme": "hc-light",
         "path": "themes/gothic-light-hc.color-theme.json"
       },
       {
         "label": "Goth Dark (High Contrast)",
-        "uiTheme": "vs-dark",
+        "uiTheme": "hc-black",
         "path": "themes/gothic-dark-hc.color-theme.json"
       }
     ]

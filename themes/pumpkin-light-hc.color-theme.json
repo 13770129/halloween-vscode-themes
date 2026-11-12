@@ -1,6 +1,7 @@
 {
   "name": "Pumpkin Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#fff3e3",
     "editor.foreground": "#3a1a00",

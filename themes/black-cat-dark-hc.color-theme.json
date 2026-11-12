@@ -1,6 +1,7 @@
 {
   "name": "Coven Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#08060b",
     "editor.foreground": "#f3eaff",

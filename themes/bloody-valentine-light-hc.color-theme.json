@@ -1,6 +1,7 @@
 {
   "name": "Bloody Valentine Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#fff0f2",
     "editor.foreground": "#3a0510",

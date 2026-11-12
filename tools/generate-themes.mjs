@@ -996,6 +996,8 @@ for (const [id, palette] of Object.entries(PALETTES)) {
     const theme = {
       name: `${palette.name} ${MODE_LABELS[mode]} (High Contrast)`,
       type: mode,
+      // hc-light/hc-black puts the variant under the picker's High Contrast section
+      uiTheme: mode === "dark" ? "hc-black" : "hc-light",
       colors: buildColorsHC(adj, m),
       tokenColors: buildTokenColors(adj),
     };

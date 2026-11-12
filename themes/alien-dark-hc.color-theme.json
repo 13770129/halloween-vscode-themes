@@ -1,6 +1,7 @@
 {
   "name": "Alien Dark (High Contrast)",
   "type": "dark",
+  "uiTheme": "hc-black",
   "colors": {
     "editor.background": "#02130a",
     "editor.foreground": "#d6ffe6",

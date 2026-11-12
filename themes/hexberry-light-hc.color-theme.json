@@ -1,6 +1,7 @@
 {
   "name": "Hexberry Light (High Contrast)",
   "type": "light",
+  "uiTheme": "hc-light",
   "colors": {
     "editor.background": "#fff2f8",
     "editor.foreground": "#33061f",
